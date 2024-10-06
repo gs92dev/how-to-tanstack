@@ -47,6 +47,15 @@ function Home() {
     },
     onError: (error) => wetToast(error.message),
   });
+  const { mutate: deleteCredits } = useMutation({
+    mutationFn: () =>
+      post("/rest/credits", undefined, {}, PostCreditsSchema.parse),
+    onSuccess: () => {
+      wetToast("Credits deleted!");
+      queryClient.invalidateQueries({ queryKey: creditsQuery.queryKey });
+    },
+    onError: (error) => wetToast(error.message),
+  });
 
   return (
     <div>
@@ -70,8 +79,8 @@ function Home() {
               Buy Credits x{multiplier}
             </Button>
           ))}
-          <Button className="bg-blue-500" onClick={() => mutate(0)}>
-            Erase your credtis
+          <Button className="bg-blue-500" onClick={() => deleteCredits()}>
+            Erase your credits
           </Button>
         </CardContent>
         <CardFooter className="flex-col">

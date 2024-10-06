@@ -3,6 +3,8 @@ import { z } from "zod";
 export const GetCreditsSchema = z.object({
   credits: z.number(),
 });
+export const DeleteCreditsSchema = z.void();
+export type DeleteCreditsResponse = z.infer<typeof DeleteCreditsSchema>;
 export type GetCreditsResponse = z.infer<typeof GetCreditsSchema>;
 
 export type PostCreditsBody = {
